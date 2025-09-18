@@ -13,7 +13,8 @@ def doc2json(image, prompt: str):
     #Fetch du processor Donut et du model
     processor = DonutProcessor.from_pretrained("naver-clova-ix/donut-base-finetuned-docvqa")
     model = VisionEncoderDecoderModel.from_pretrained("naver-clova-ix/donut-base-finetuned-docvqa")
-
+    model = model.to(device)
+    
     #Préparation des inputs du model via le processor (l'image et le prompt)
     pixel_values = processor(image, return_tensors="pt").pixel_values
     pixel_values = pixel_values.to(device)
