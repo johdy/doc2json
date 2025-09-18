@@ -12,7 +12,6 @@ def question_directory(directory: List[str], questions: List[str]) -> Dict:
         image = Image.open(file).convert("RGB")
         q_a = []
         for q in questions:
-            results.append(q)
             answer = doc2json(image, q)
             q_a.append({q: answer})
         results.append({"filename": file, "Q&A": q_a})
@@ -21,5 +20,5 @@ def question_directory(directory: List[str], questions: List[str]) -> Dict:
 
 if __name__ == "__main__":
     directory = glob("/Users/john/Desktop/dataset/testing_data/images/*")
-    questions = ["From : ", "To : "]
+    questions = ["Récupère From et To"]
     results = question_directory(directory, questions)
