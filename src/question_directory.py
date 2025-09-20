@@ -29,7 +29,7 @@ def question_directory(directory: List[str], questions: List[str], save_json: bo
             q = q.strip()
             answer = image_q_and_a(image, q, processor, model)
             answer_text = normalize(answer["text_sequence"])
-            q_a.append({q: answer_text.split(normalize(q))[1]})
+            q_a.append({q: answer_text.split(normalize(q))[1].strip()})
         new_line = {"filename": file, "Q&A": q_a}
         results.append(new_line)
         if verbose:

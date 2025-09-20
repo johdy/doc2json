@@ -4,9 +4,10 @@ Image Q&A est un programme Python d'extraction d'informations écrites à partir
 
 ## Structure
 
-- `image_q_and_a.py` : chargement du modèle Donut et processing de l'input et de l'output du modèle, en fonction d'une image et d'une question
-- `question_directory.py` : applique une liste de questions à un dossier d’images et renvoie un JSON
-- `dataset/` : dossier comprenant les fichiers images
+- `src/image_q_and_a.py` : chargement du modèle Donut et processing de l'input et de l'output du modèle, en fonction d'une image et d'une question.
+- `src/question_directory.py` : applique une liste de questions à un dossier d’images et renvoie un JSON.
+- `dataset/` : dossier comprenant les fichiers images.
+- `output/` : dossier contenant les json de sortie.
 
 ## Installation
 
@@ -21,28 +22,53 @@ pip install -r requirements.txt
 
 ## Usage
 
-- Placer les fichiers dans le dossier `dataset`
-- Modifier le fichier `questions.txt` avec un prompt par ligne
-- lancer le script, l'option `save_args` sauvegarde les résultats dans `results.json`
+- Placer les fichiers dans le dossier `dataset`.
+- Modifier le fichier `questions.txt` avec un prompt par ligne.
+- lancer le script, l'option `save_json` sauvegarde les résultats dans `outputs/results.json`.
 
 ```bash
-python question_directory.py [--save_args]
+python question_directory.py [-h] [--save_json] [--name_output NAME_OUTPUT]
+                             [--verbose]
 ```
 
 ## Exemple de sortie
 
 ```json
-{
-    "filename": "/Users/john/Desktop/dataset/testing_data/images/82252956_2958.png",
-    "Q&A": [
-        {"Get who this is from": " d. j. landro"},
-        {"Get who this is to": " k. a. sparrow"}
+[
+    {
+        "filename": "./dataset/82573104.png",
+        "Q&A": [
+            {
+                "Get who this is from": " david h. remes"
+            },
+            {
+                "Get who this is to": " haney h. bell, esq."
+            }
         ]
-}
+    }
+]
+```
 
 ## POC
 
 Nous testons le programme sur la database [FUNSD](https://guillaumejaume.github.io/FUNSD/) constituée de formulaires scannés de natures différentes. Nous voulons récupérer deux informations :
 - Le champ "FROM"
-- Le champ "TO"
-Bien sûr, tous les documents n'ont pas ces champs.
+- Le champ "TO".
+
+### Pipeline
+
+- Chaque image est passée au modèle Donut avec une question spécifique.
+- Donut renvoie la réponse sous forme d'une variable `text_sequence`, contenant la question et la réponse.
+- Chaque réponse est extraite, normalisée et convertie en JSON pour chaque document.
+
+### Résultats et limites
+
+- Les champs FROM et TO sont correctement extraits dans la grande majorité des documents qui montrent ces champs.
+- Cependant le modèle ne peut discener entre une extraction correcte et une hallucination, qui peut arriver si l'information est difficilement lisible ou si, de manière plus problématique, elle est absente du document.
+
+### What's next
+
+- Pour des documents standardisés, un recadrage de l'image sur la zone de l'information requise permettrait de diminuer le bruit.
+- Une approche OCR + regex complémentaire pourrait solidifier les résultats.
+
+

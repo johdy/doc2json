@@ -1,6 +1,7 @@
 import pprint
 import argparse
 import logging
+from typing import Dict
 
 import torch
 from transformers import DonutProcessor, VisionEncoderDecoderModel
