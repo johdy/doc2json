@@ -12,7 +12,7 @@ from image_q_and_a import image_q_and_a, load_donut
 def normalize(s: str) -> str:
     return unicodedata.normalize("NFKC", s).strip().lower()
 
-def question_directory(directory: List[str], questions: List[str], save_json: bool, name_output: str, verbose: bool) -> Dict:
+def question_directory(directory: List[str], questions: List[str], save_json: bool, name_output: str, verbose: bool) -> List[Dict]:
     """Réponds pour chaque image du répertoire à la liste de questions posées
         Prends un path de répertoire d'image en argument, et 
     """

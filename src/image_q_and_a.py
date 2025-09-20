@@ -7,7 +7,7 @@ from transformers import DonutProcessor, VisionEncoderDecoderModel
 
 from PIL import Image
 
-def get_device():
+def get_device() -> str:
     if torch.backends.mps.is_available():
         device = torch.device("mps")
     elif torch.cuda.is_available():
@@ -29,7 +29,7 @@ def load_donut(verbose: bool):
 
     return processor, model
 
-def image_q_and_a(image, prompt: str, processor, model):
+def image_q_and_a(image, prompt: str, processor, model) -> Dict:
     """Récupération de l'information voulue dans le document
     """
 
