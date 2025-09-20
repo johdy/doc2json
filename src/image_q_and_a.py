@@ -1,19 +1,31 @@
 import pprint
 import argparse
+import logging
 
 import torch
 from transformers import DonutProcessor, VisionEncoderDecoderModel
+
 from PIL import Image
 
-device = "mps" if torch.backends.mps.is_available() else "cpu"
+def get_device():
+    if torch.backends.mps.is_available():
+        device = torch.device("mps")
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        device = torch.device("cpu")
+    return device
 
-def load_donut():
+def load_donut(verbose: bool):
     """Fetch du processor Donut et du model
     """
     
+    if not verbose:
+        logging.getLogger("transformers").setLevel(logging.ERROR)
+
     processor = DonutProcessor.from_pretrained("naver-clova-ix/donut-base-finetuned-docvqa")
     model = VisionEncoderDecoderModel.from_pretrained("naver-clova-ix/donut-base-finetuned-docvqa")
-    model = model.to(device)
+    model = model.to(get_device())
 
     return processor, model
 
@@ -21,6 +33,7 @@ def image_q_and_a(image, prompt: str, processor, model):
     """Récupération de l'information voulue dans le document
     """
 
+    device = get_device()
     #Préparation des inputs du model via le processor (l'image et le prompt)
     pixel_values = processor(image, return_tensors="pt").pixel_values
     pixel_values = pixel_values.to(device)
