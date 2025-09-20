@@ -1,10 +1,10 @@
-# Image Q&A
+# Image Q&A multimodal
 
-Image Q&A est un programme Python d'extraction d'informations écrites à partir de scan de documents. Il s'appuie sur [Donut](https://huggingface.co/docs/transformers/model_doc/donut), un modèle associant vision et langage, capable de répondre à une question en fonction d'un document, sans OCR direct).
+Image Q&A (multimodal) est un programme Python d'extraction d'informations écrites à partir de scan de documents. Il s'appuie sur [Donut](https://huggingface.co/docs/transformers/model_doc/donut), un modèle associant vision et langage, capable de répondre à une question en fonction d'un document, sans OCR direct).
 
 ## Structure
 
-- `src/image_q_and_a.py` : chargement du modèle Donut et processing de l'input et de l'output du modèle, en fonction d'une image et d'une question.
+- `src/image_q_and_a_multimodal.py` : chargement du modèle Donut et processing de l'input et de l'output du modèle, en fonction d'une image et d'une question.
 - `src/question_directory.py` : applique une liste de questions à un dossier d’images et renvoie un JSON.
 - `dataset/` : dossier comprenant les fichiers images.
 - `output/` : dossier contenant les json de sortie.
@@ -13,7 +13,7 @@ Image Q&A est un programme Python d'extraction d'informations écrites à partir
 
 ```bash
 git clone <URL_DU_REPO>
-cd image_q_and_a
+cd image_q_and_a_multimodal
 
 python -m venv venv
 source venv/bin/activate

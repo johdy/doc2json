@@ -7,7 +7,7 @@ import unicodedata
 
 from PIL import Image
 
-from image_q_and_a import image_q_and_a, load_donut
+from src.image_q_and_a_multimodal import image_q_and_a_multimodal, load_donut
 
 def normalize(s: str) -> str:
     return unicodedata.normalize("NFKC", s).strip().lower()
@@ -27,7 +27,7 @@ def question_directory(directory: List[str], questions: List[str], save_json: bo
         q_a = []
         for q in questions:
             q = q.strip()
-            answer = image_q_and_a(image, q, processor, model)
+            answer = image_q_and_a_multimodal(image, q, processor, model)
             answer_text = normalize(answer["text_sequence"])
             q_a.append({q: answer_text.split(normalize(q))[1].strip()})
         new_line = {"filename": file, "Q&A": q_a}
