@@ -48,6 +48,9 @@ Le validator peut être lancé comme suit :
 streamlit run validator/app.py -- [--load_json] [outputs/file]
 ```
 
+***
+***
+
 ## POC
 
 Nous testons les deux approches sur la database [FUNSD](https://guillaumejaume.github.io/FUNSD/) constituée de formulaires scannés de natures différentes. Nous voulons récupérer deux informations :
@@ -72,6 +75,9 @@ Nous testons les deux approches sur la database [FUNSD](https://guillaumejaume.g
 - Pour des documents standardisés, un recadrage de l'image sur la zone de l'information requise permettrait de diminuer le bruit, notamment pour l'approche Donut.
 - Une combinaison des deux méthodes (Donut + OCR + regex) pourrait offrir une approche hybride plus performante.
 - Possibilité de générer un rapport d’évaluation automatisé dans Validator pour suivre la qualité des extractions sur un dataset entier.
+
+***
+***
 
 ## Docker
 
